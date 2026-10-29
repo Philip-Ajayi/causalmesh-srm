@@ -4,6 +4,12 @@
 FROM node:20-alpine AS frontend-builder
 WORKDIR /build/frontend
 
+# Optional: pass build args if custom endpoints are needed at compile time
+ARG VITE_API_BASE_URL=""
+ARG VITE_WS_BASE_URL=""
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ENV VITE_WS_BASE_URL=$VITE_WS_BASE_URL
+
 COPY frontend/package*.json ./
 RUN npm ci || npm install
 
